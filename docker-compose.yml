@@ -1,0 +1,22 @@
+services:
+  web:
+    container_name: web
+    build: ./
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+      - redis
+  mysql:
+    container_name: mysql
+    image: mysql:8-debian
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: 'tiktok'
+      MYSQL_ROOT_PASSWORD: 'hellomysql_6657edc'
+  redis:
+    container_name: redis
+    image: redis:7.0-alpine
+    ports:
+      - "6379:6379"
