@@ -180,5 +180,3 @@ message User {
   required bool is_follow = 5; // true-已关注，false-未关注
 }
 ```
-
-
