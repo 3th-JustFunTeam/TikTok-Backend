@@ -12,7 +12,7 @@ ENV GO118MODULE=on \
 RUN go version
 RUN mkdir /GODIR
 WORKDIR /build
-COPY . .
+COPY .. .
 WORKDIR /build
 RUN go build -o main .
 WORKDIR /dist

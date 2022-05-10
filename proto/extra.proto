@@ -1,0 +1,87 @@
+syntax = "proto2";
+package douyin.extra.first;
+option go_package="douyin/proto/gen/go;api";
+import "core.proto";
+
+message douyin_favorite_action_request {
+  required int64 user_id = 1; // 用户id
+  required string token = 2; // 用户鉴权token
+  required int64 video_id = 3; // 视频id
+  required int32 action_type = 4; // 1-点赞，2-取消点赞
+}
+
+message douyin_favorite_action_response {
+  required int32 status_code = 1; // 状态码，0-成功，其他值-失败
+  optional string status_msg = 2; // 返回状态描述
+}
+
+message douyin_favorite_list_request {
+  required int64 user_id = 1; // 用户id
+  required string token = 2; // 用户鉴权token
+}
+
+message douyin_favorite_list_response {
+  required int32 status_code = 1; // 状态码，0-成功，其他值-失败
+  optional string status_msg = 2; // 返回状态描述
+  repeated core.Video video_list = 3; // 用户点赞视频列表
+}
+
+message douyin_comment_action_request {
+  required int64 user_id = 1; // 用户id
+  required string token = 2; // 用户鉴权token
+  required int64 video_id = 3; // 视频id
+  required int32 action_type = 4; // 1-发布评论，2-删除评论
+  optional string comment_text = 5; // 用户填写的评论内容，在action_type=1的时候使用
+  optional int64 comment_id = 6; // 要删除的评论id，在action_type=2的时候使用
+}
+
+message douyin_comment_action_response {
+  required int32 status_code = 1; // 状态码，0-成功，其他值-失败
+  optional string status_msg = 2; // 返回状态描述
+}
+
+message douyin_comment_list_request {
+  required int64 user_id = 1; // 用户id
+  required string token = 2; // 用户鉴权token
+  required int64 video_id = 3; // 视频id
+}
+
+message douyin_comment_list_response {
+  required int32 status_code = 1; // 状态码，0-成功，其他值-失败
+  optional string status_msg = 2; // 返回状态描述
+  repeated core.Comment comment_list = 3; // 评论列表
+}
+
+message douyin_relation_action_request {
+  required int64 user_id = 1; // 用户id
+  required string token = 2; // 用户鉴权token
+  required int64 to_user_id = 3; // 对方用户id
+  required int32 action_type = 4; // 1-关注，2-取消关注
+}
+
+message douyin_relation_action_response {
+  required int32 status_code = 1; // 状态码，0-成功，其他值-失败
+  optional string status_msg = 2; // 返回状态描述
+}
+
+message douyin_relation_follow_list_request {
+  required int64 user_id = 1; // 用户id
+  required string token = 2; // 用户鉴权token
+}
+
+message douyin_relation_follow_list_response {
+  required int32 status_code = 1; // 状态码，0-成功，其他值-失败
+  optional string status_msg = 2; // 返回状态描述
+  repeated core.User user_list = 3; // 用户信息列表
+}
+
+message douyin_relation_follower_list_request {
+  required int64 user_id = 1; // 用户id
+  required string token = 2; // 用户鉴权token
+}
+
+message douyin_relation_follower_list_response {
+  required int32 status_code = 1; // 状态码，0-成功，其他值-失败
+  optional string status_msg = 2; // 返回状态描述
+  repeated core.User user_list = 3; // 用户列表
+}
