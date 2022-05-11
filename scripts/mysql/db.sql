@@ -19,8 +19,3 @@ create table Videos
     ts        timestamp                      not null,
     foreign key (author_id) references Users (id)
 );
-
-create table Comments
-(
-    
-);
