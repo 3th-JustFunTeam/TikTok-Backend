@@ -1,7 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"github.com/3th-JustFunTeam/Tiktok-Backend/server"
+	"github.com/gin-gonic/gin"
+)
 
 func main() {
-	fmt.Printf("Hello world!!\n")
+	r := gin.Default()
+	server.InitRouter(r)
+	r.Run()
 }

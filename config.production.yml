@@ -1,0 +1,9 @@
+database:
+  host: 'mysql'
+  port: '3306'
+  user: 'root'
+  password: 'hellomysql_6657edc'
+  database: 'tiktok'
+redis:
+  host: 'redis'
+  port: '6379'

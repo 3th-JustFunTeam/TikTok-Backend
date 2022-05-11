@@ -1,7 +1,7 @@
 # TikTok-Backend
 TikTok backend in Golang.
 ## 项目结构
-API文档见API.md
+API文档见 docks/API.md
 ## 部署
 1. 在Linux服务器安装Docker, Docker-compose
 ```shell
