@@ -1,6 +1,6 @@
 syntax = "proto2";
 package douyin.extra.first;
-option go_package="douyin/proto/gen/go;api";
+option go_package="./api;api";
 import "core.proto";
 
 message douyin_favorite_action_request {
