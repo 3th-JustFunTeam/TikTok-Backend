@@ -12,7 +12,8 @@ func UserRegisterHandler(context *gin.Context) {
 	if err != nil {
 		return
 	}
-	log.Printf("user: %s\n", user.GetUsername())
+	log.Printf("will register user: %s\n", user.GetUsername())
+
 }
 
 func UserLoginHandler(context *gin.Context) {
