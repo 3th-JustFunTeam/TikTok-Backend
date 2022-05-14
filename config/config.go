@@ -32,14 +32,14 @@ func (c *Config) GetConfig() {
 			panic("ERROR: cannot find config file")
 		}
 		fmt.Println("INFO: find config.development.yml")
-		c.readConfig("./config.development.yml")
+		c.ReadConfig("./config.development.yml")
 	} else {
 		fmt.Println("INFO: find config.yml")
-		c.readConfig("./config.yml")
+		c.ReadConfig("./config.yml")
 	}
 }
 
-func (c *Config) readConfig(filename string) {
+func (c *Config) ReadConfig(filename string) {
 	ymlFile, err := ioutil.ReadFile(filename)
 	if err != nil {
 		panic(err.Error())

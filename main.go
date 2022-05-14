@@ -9,9 +9,9 @@ import (
 
 func main() {
 	var config config.Config
-	config.GetConfig()
+	//config.ReadConfig("./config/config.production.yml")
+	config.ReadConfig("./config.development.yml")
 	fmt.Printf("%v\n", config.MySQL)
-	return
 	r := gin.Default()
 	server.InitRouter(r)
 	r.Run()

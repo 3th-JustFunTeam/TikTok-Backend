@@ -12,9 +12,10 @@ ENV GO118MODULE=on \
 RUN go version
 RUN mkdir /GODIR
 WORKDIR /build
-COPY .. .
+COPY . .
+RUN ls
 WORKDIR /build
-RUN rm /build/config.development.yml
+RUN #rm /build/config.development.yml
 RUN cp /build/config/config.production.yml /build/config.yml
 RUN go build -o main .
 EXPOSE 8081
