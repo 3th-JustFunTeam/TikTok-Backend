@@ -14,8 +14,8 @@ RUN mkdir /GODIR
 WORKDIR /build
 COPY .. .
 WORKDIR /build
+RUN rm /build/config.development.yml
+RUN cp /build/config/config.production.yml /build/config.yml
 RUN go build -o main .
-WORKDIR /dist
-RUN cp /build/main .
 EXPOSE 8081
-CMD ["/dist/main"]
+CMD ["/build/main"]
