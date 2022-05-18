@@ -13,7 +13,6 @@ func UserRegisterHandler(context *gin.Context) {
 		return
 	}
 	log.Printf("will register user: %s\n", user.GetUsername())
-
 }
 
 func UserLoginHandler(context *gin.Context) {

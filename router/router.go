@@ -1,15 +1,15 @@
 package router
 
 import (
-	controller2 "github.com/3th-JustFunTeam/Tiktok-Backend/controller"
+	controller "github.com/3th-JustFunTeam/Tiktok-Backend/controller"
 	"github.com/gin-gonic/gin"
 )
 
 func InitRouter(r *gin.Engine) {
-	r.POST("/douyin/user/register/", controller2.UserRegisterHandler)
-	r.POST("/douyin/user/login/", controller2.UserLoginHandler)
-	r.GET("/douyin/user/", controller2.UserInfoHandler)
-	r.GET("/douyin/feed/", controller2.VideoFeedHandler)
-	r.POST("/douyin/publish/action/", controller2.VideoPublishHandler)
-	r.GET("/douyin/publish/list/", controller2.VideoPublishListHandler)
+	r.POST("/douyin/user/register/", controller.UserRegisterHandler)
+	r.POST("/douyin/user/login/", controller.UserLoginHandler)
+	r.GET("/douyin/user/", controller.UserInfoHandler)
+	r.GET("/douyin/feed/", controller.VideoFeedHandler)
+	r.POST("/douyin/publish/action/", controller.VideoPublishHandler)
+	r.GET("/douyin/publish/list/", controller.VideoPublishListHandler)
 }
