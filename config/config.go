@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/ghodss/yaml"
+	"gorm.io/gorm"
 	"io/ioutil"
 	"os"
 )
@@ -26,26 +27,29 @@ type Redis struct {
 	Port int32  `yaml:"port"`
 }
 
-func (c *Config) GetConfig() {
+var DB *gorm.DB
+
+func (c *Config) GetConfig() error {
 	if _, err := os.Stat("./config.yml"); errors.Is(err, os.ErrNotExist) {
 		if _, err := os.Stat("./config.development.yml"); errors.Is(err, os.ErrNotExist) {
-			panic("ERROR: cannot find config file")
+			return err
 		}
 		fmt.Println("INFO: find config.development.yml")
-		c.ReadConfig("./config.development.yml")
+		return c.ReadConfig("./config.development.yml")
 	} else {
 		fmt.Println("INFO: find config.yml")
-		c.ReadConfig("./config.yml")
+		return c.ReadConfig("./config.yml")
 	}
 }
 
-func (c *Config) ReadConfig(filename string) {
+func (c *Config) ReadConfig(filename string) error {
 	ymlFile, err := ioutil.ReadFile(filename)
 	if err != nil {
-		panic(err.Error())
+		return err
 	}
 	err = yaml.Unmarshal(ymlFile, c)
 	if err != nil {
-		panic(err.Error())
+		return err
 	}
+	return nil
 }

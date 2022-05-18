@@ -1,3 +1,4 @@
+SET NAMES utf8mb4;
 drop database if exists tiktok;
 create database tiktok;
 

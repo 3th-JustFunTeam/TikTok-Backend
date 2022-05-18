@@ -2,23 +2,26 @@ package controller
 
 import (
 	"github.com/3th-JustFunTeam/Tiktok-Backend/api"
+	"github.com/3th-JustFunTeam/Tiktok-Backend/model"
 	"github.com/gin-gonic/gin"
-	"log"
+	"net/http"
 )
 
 func UserRegisterHandler(context *gin.Context) {
-	var user api.DouyinUserRegisterRequest
-	err := context.Bind(&user)
+	// need to finish
+	var userRegReq api.DouyinUserRegisterRequest
+	var userRegResp api.DouyinUserRegisterResponse
+	err := context.Bind(&userRegReq)
 	if err != nil {
-		return
+		context.JSON(http.StatusOK, userRegResp)
 	}
-	log.Printf("will register user: %s\n", user.GetUsername())
+	var user model.User
+	user.AuthName = *userRegReq.Username
+	user.Password = *userRegReq.Password
 }
 
 func UserLoginHandler(context *gin.Context) {
-
 }
 
 func UserInfoHandler(context *gin.Context) {
-
 }
