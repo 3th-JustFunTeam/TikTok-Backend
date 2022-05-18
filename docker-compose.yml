@@ -15,8 +15,8 @@ services:
     build:
       context: ./docker/
       dockerfile: mysql.Dockerfile
-#    volumes:
-#      - "./scripts/mysql:/docker-entrypoint-initdb.d"
+    volumes:
+      - "./scripts/mysql:/docker-entrypoint-initdb.d"
     ports:
       - "3306:3306"
     environment:
