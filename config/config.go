@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/ghodss/yaml"
+	"github.com/go-redis/redis/v8"
 	"gorm.io/gorm"
 	"io/ioutil"
 	"os"
@@ -28,6 +29,7 @@ type Redis struct {
 }
 
 var DB *gorm.DB
+var RDB *redis.Client
 
 func (c *Config) GetConfig() error {
 	if _, err := os.Stat("./config.yml"); errors.Is(err, os.ErrNotExist) {

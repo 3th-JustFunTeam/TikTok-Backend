@@ -18,6 +18,8 @@ func UserRegisterHandler(context *gin.Context) {
 	var user model.User
 	user.AuthName = *userRegReq.Username
 	user.Password = *userRegReq.Password
+	//db := config.DB
+
 }
 
 func UserLoginHandler(context *gin.Context) {
