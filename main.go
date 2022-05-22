@@ -11,6 +11,7 @@ import (
 )
 
 func main() {
+
 	// read configuration
 	var c config.Config
 	err := c.GetConfig()
