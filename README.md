@@ -13,3 +13,9 @@ $ sudo pip install docker-compose
 ```shell
 $ docker-compose up -d
 ```
+
+## Contributors
+
+张思雨 用户注册
+鲍宇桐 用户登录
+

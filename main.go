@@ -11,12 +11,14 @@ import (
 )
 
 func main() {
+	// read configuration
 	var c config.Config
 	err := c.GetConfig()
 	if err != nil {
 		panic(err.Error())
 	}
 	fmt.Printf("%v\n", c)
+
 	// init mysql db
 	config.DB, err = gorm.Open(mysql.New(mysql.Config{
 		DSN: fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8&parseTime=True&loc=Asia%%2fShanghai", c.MySQL.User, c.MySQL.Password, c.MySQL.Host, c.MySQL.Port, c.MySQL.Database),
