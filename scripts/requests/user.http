@@ -1,0 +1,9 @@
+POST http://localhost:8080/douyin/user/register/
+Content-Type: application/json
+
+{
+  "username": "helloworld",
+  "password": "123123"
+}
+
+###
