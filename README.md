@@ -2,6 +2,11 @@
 TikTok backend in Golang.
 ## 项目结构
 API文档见 docks/API.md
+
+## 核心包结构
+
+![image-20220522235352995](https://raw.githubusercontent.com/ShengYangCode/pic/master/img/image-20220522235352995.png)
+
 ## 部署
 1. 在Linux服务器安装Docker, Docker-compose
 ```shell
@@ -31,4 +36,5 @@ $ docker-compose up -d
 杨正茂 用户模块
 
 钱圣阳 视频模块
+
 
