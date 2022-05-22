@@ -1,19 +1,17 @@
 version: '3.3'
 services:
   web:
-    container_name: web
+    container_name: tiktok_web
     build:
-      context: ./docker/
-      dockerfile: web.Dockerfile
+      context: .
+      dockerfile: docker/web.Dockerfile
     ports:
       - "8080:8080"
-    environment:
-      - DEV=1
     depends_on:
-      - mysql
-      - redis
+      - tiktok_mysql
+      - tiktok_redis
   mysql:
-    container_name: mysql
+    container_name: tiktok_mysql
     build:
       context: ./docker/
       dockerfile: mysql.Dockerfile
@@ -25,7 +23,7 @@ services:
       MYSQL_DATABASE: 'tiktok'
       MYSQL_ROOT_PASSWORD: 'hellomysql_6657edc'
   redis:
-    container_name: redis
+    container_name: tiktok_redis
     image: redis:7.0-alpine
     ports:
       - "6379:6379"

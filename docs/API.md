@@ -42,7 +42,7 @@ message User {
 }
 ```
 
-## /douyin/user/register/ - 用户注册接口
+### /douyin/user/register/ - 用户注册接口
 
 Method: POST
 
@@ -66,7 +66,7 @@ message douyin_user_register_response {
 }
 ```
 
-## /douyin/user/login/ - 用户登录接口
+### /douyin/user/login/ - 用户登录接口
 
 Method: POST
 
@@ -89,7 +89,7 @@ message douyin_user_login_response {
 }
 ```
 
-## /douyin/user/ - 用户信息
+### /douyin/user/ - 用户信息
 
 Method: POST
 
@@ -119,7 +119,7 @@ message User {
 }
 ```
 
-## /douyin/publish/action/ - 视频投稿
+### /douyin/publish/action/ - 视频投稿
 
 Method: POST
 
@@ -141,7 +141,7 @@ message douyin_publish_action_response {
 }
 ```
 
-## /douyin/publish/list/ - 发布列表
+### /douyin/publish/list/ - 发布列表
 
 Method: GET
 
