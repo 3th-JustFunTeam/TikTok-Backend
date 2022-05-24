@@ -47,6 +47,7 @@ func GetAllVideo() ([]vo.VideoVo, error) {
 	return videoVoList, err
 }
 
+// GetUserInfoByIds 根据用户的id集合获取用户的信息
 func GetUserInfoByIds(ids []int) ([]vo.UserInfo, error) {
 	var users []po.User
 	var userInfos []vo.UserInfo
@@ -70,6 +71,7 @@ func GetUserInfoByIds(ids []int) ([]vo.UserInfo, error) {
 
 }
 
+// AddVideo 添加视频
 func AddVideo(token, title, fileName string) error {
 
 	// 解析token

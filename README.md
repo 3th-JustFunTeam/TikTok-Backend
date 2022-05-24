@@ -5,7 +5,7 @@ API文档见 docks/API.md
 
 ## 核心包结构
 
-![image-20220522235352995](https://raw.githubusercontent.com/ShengYangCode/pic/master/img/image-20220522235352995.png)
+![](https://raw.githubusercontent.com/ShengYangCode/pic/master/img/20220524225201.png)
 
 ## 部署
 1. 在Linux服务器安装Docker, Docker-compose
