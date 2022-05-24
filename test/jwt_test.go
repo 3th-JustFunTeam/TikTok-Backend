@@ -20,7 +20,7 @@ func Test_createJWT(t *testing.T) {
 // Test_ParseToken 测试解析token
 func Test_ParseToken(t *testing.T) {
 	// 用上面创建的token值进行测试 默认创建的是1天过期, 这个时间可以在 tokenUtil 里设置
-	token := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMDAwMSwiZXhwIjoxNjUzMjI1OTkzLCJpc3MiOiJUaWtUb2sifQ.JGsfa6f0YhV6NfNBUIx47PH7ZVswft-_dta_C3GkEhU"
+	token := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE2NTM0ODQwNjQsImlzcyI6IlRpa1RvayJ9.GxuWPYuY7Cc-dJg2xHhBNQJqMsVIma09BKG7bBgTyLY"
 	claims, err := utils.ParseToken(token)
 	if err != nil {
 		fmt.Println("token 解密失败, 或者 token 过期")

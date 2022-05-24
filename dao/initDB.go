@@ -32,4 +32,7 @@ func InitDB() {
 		panic(any(err))
 	}
 	DB = db // 全局使用
+
+	//db.Set("", "ENGINE=InnoDB").AutoMigrate(&po.User{})
+	//db.Set("", "ENGINE=InnoDB").AutoMigrate(&po.VideoCommon{})
 }
