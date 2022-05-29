@@ -1,12 +1,13 @@
 package dao
 
 import (
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
-	"gorm.io/gorm/logger"
 	"log"
 	"os"
 	"time"
+
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
 var DB *gorm.DB
@@ -29,7 +30,7 @@ func InitDB() {
 		Logger: newLogger,
 	})
 	if err != nil {
-		panic(any(err))
+		panic(err)
 	}
 	DB = db // 全局使用
 
