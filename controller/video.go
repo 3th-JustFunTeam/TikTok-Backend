@@ -12,7 +12,8 @@ import (
 
 // VideoFeedHandler 视频流接口
 func VideoFeedHandler(context *gin.Context) {
-	video, err := service.GetAllVideo()
+	token := context.Query("token")
+	video, err := service.GetAllVideo(token)
 
 	if err != nil {
 		context.JSON(404, gin.H{
@@ -71,6 +72,9 @@ func VideoPublishHandler(context *gin.Context) {
 }
 
 // VideoPublishListHandler 发布列表
-func VideoPublishListHandler(context *gin.Context) {
-
+func VideoPublishListHandler(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
+		"status_code": 0,
+		"status_msg":  "",
+	})
 }

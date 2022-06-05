@@ -11,7 +11,7 @@ import (
 )
 
 // GetAllVideo 获取所有视频(最前发布20个)
-func GetAllVideo() ([]vo.VideoVo, error) {
+func GetAllVideo(token string) ([]vo.VideoVo, error) {
 
 	video, err := dao.QueryAllVideo()
 	var videoVoList []vo.VideoVo
@@ -24,7 +24,9 @@ func GetAllVideo() ([]vo.VideoVo, error) {
 		ids = append(ids, int(value.UserId))
 	}
 	setIds := utils.RemoveRepeatedElement(ids)
-	infos, err := GetUserInfoByIds(setIds)
+
+	c, _ := utils.ParseToken(token)
+	infos, err := GetUserInfoByIds(setIds, token, c.UserId)
 
 	// 封装数据
 	for _, v := range video {
@@ -39,6 +41,7 @@ func GetAllVideo() ([]vo.VideoVo, error) {
 					CoverUrl:     v.CoverUrl,
 					CommentCount: count,
 					IsFavorite:   false,
+					Title:        v.Title,
 				}
 				videoVoList = append(videoVoList, videoVo)
 			}
@@ -48,25 +51,53 @@ func GetAllVideo() ([]vo.VideoVo, error) {
 }
 
 // GetUserInfoByIds 根据用户的id集合获取用户的信息
-func GetUserInfoByIds(ids []int) ([]vo.UserInfo, error) {
+func GetUserInfoByIds(ids []int, token string, userId int) ([]vo.UserInfo, error) {
+
 	var users []po.User
 	var userInfos []vo.UserInfo
 	tx := dao.DB.Where("id in ?", ids).Find(&users)
 
-	for _, user := range users {
-		// todo 用户的关注和粉丝没写
-		info := vo.UserInfo{
-			UserId:          uint(user.ID),
-			NickName:        user.NickName,
-			FollowCount:     0,
-			FollowerCount:   0,
-			IsFollow:        false,
-			Avatar:          user.Avatar,
-			Signature:       user.Signature,
-			BackgroundImage: user.BackgroundImage,
+	_, err := utils.ParseToken(token)
+	if err == nil { // 登录状态
+		for _, user := range users {
+			// 当前用户是否关注了视频发布者
+			count := dao.QueryIsFollow(userId, int(user.ID))
+			var IsFollow = false
+			if count == 1 {
+				IsFollow = true
+			}
+			// 获取关注和粉丝数
+			followCount, followerCount := dao.QueryFollowingListByUserIdCount(int(user.ID))
+			info := vo.UserInfo{
+				UserId:          uint(user.ID),
+				NickName:        user.NickName,
+				FollowCount:     followCount,
+				FollowerCount:   followerCount,
+				IsFollow:        IsFollow,
+				Avatar:          user.Avatar,
+				Signature:       user.Signature,
+				BackgroundImage: user.BackgroundImage,
+			}
+			userInfos = append(userInfos, info)
 		}
-		userInfos = append(userInfos, info)
+
+	} else { // 未登录状态
+		for _, user := range users {
+			followCount, followerCount := dao.QueryFollowingListByUserIdCount(int(user.ID))
+			info := vo.UserInfo{
+				UserId:          uint(user.ID),
+				NickName:        user.NickName,
+				FollowCount:     followCount,
+				FollowerCount:   followerCount,
+				IsFollow:        false, // 未登录状态  都是未关注
+				Avatar:          user.Avatar,
+				Signature:       user.Signature,
+				BackgroundImage: user.BackgroundImage,
+			}
+			userInfos = append(userInfos, info)
+		}
 	}
+
 	return userInfos, tx.Error
 
 }

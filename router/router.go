@@ -20,13 +20,13 @@ func InitRouter(r *gin.Engine) {
 
 	// 拓展接口 - I
 	//g.POST("/favorite/action/", controller.FavoriteActionHandler)
-	//g.GET("/favorite/list/", controller.FavoriteListHandler)
+	g.GET("/favorite/list/", controller.FavoriteListHandler)
 	g.POST("/comment/action/", controller.CommentActionHandler)
 	g.GET("/comment/list/", controller.CommentListHandler)
 
 	// 拓展接口 - II
-	//g.POST("/relation/action/", controller.RelationActionHandler)
-	//g.GET("/relation/follow/list/", controller.FollowListHandler)
-	//g.GET("/relation/follower/list/", controller.FollowerListHandler)
+	g.POST("/relation/action/", controller.RelationActionHandler)
+	g.GET("/relation/follow/list/", controller.FollowListHandler)
+	g.GET("/relation/follower/list/", controller.FollowerListHandler)
 
 }

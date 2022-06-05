@@ -68,7 +68,7 @@ func RemoveCommentById(commentId, videoId int) error {
 func GetCommentList(videoId int, token string) ([]vo.CommentVo, error) {
 	var commentVo []vo.CommentVo
 	var comment []po.VideoCommon
-	_, err := utils.ParseToken(token)
+	c, err := utils.ParseToken(token)
 	if err != nil {
 		return commentVo, errors.New("token 解析失败")
 	}
@@ -83,7 +83,7 @@ func GetCommentList(videoId int, token string) ([]vo.CommentVo, error) {
 		ids = append(ids, int(value.UserId))
 	}
 	setIds := utils.RemoveRepeatedElement(ids)
-	infos, err := GetUserInfoByIds(setIds)
+	infos, err := GetUserInfoByIds(setIds, token, c.UserId)
 
 	for _, common := range comment {
 

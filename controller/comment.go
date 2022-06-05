@@ -25,7 +25,7 @@ func CommentActionHandler(c *gin.Context) {
 		if err != nil {
 			c.JSON(http.StatusOK, gin.H{
 				"status_code": 1,
-				"status_msg":  err.Error(),
+				"status_msg":  err,
 			})
 		} else {
 			c.JSON(http.StatusOK, gin.H{
@@ -43,7 +43,7 @@ func CommentActionHandler(c *gin.Context) {
 		if err != nil {
 			c.JSON(http.StatusOK, gin.H{
 				"status_code": 1,
-				"status_msg":  err.Error(),
+				"status_msg":  err,
 			})
 		} else {
 			c.JSON(http.StatusOK, gin.H{
