@@ -2,12 +2,13 @@ package service
 
 import (
 	"errors"
+	"time"
+
 	"github.com/3th-JustFunTeam/Tiktok-Backend/dao"
 	"github.com/3th-JustFunTeam/Tiktok-Backend/model/common"
 	"github.com/3th-JustFunTeam/Tiktok-Backend/model/po"
 	"github.com/3th-JustFunTeam/Tiktok-Backend/model/vo"
 	"github.com/3th-JustFunTeam/Tiktok-Backend/utils"
-	"time"
 )
 
 // GetAllVideo 获取所有视频(最前发布20个)
