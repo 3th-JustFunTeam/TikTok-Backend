@@ -94,3 +94,24 @@ func AddVideo(token, title, fileName string) error {
 	err := dao.SaveVideo(video)
 	return err
 }
+
+// 根据单个id获取单个视频作者信息（用于发布列表）
+func GetUserInfoById(id uint) (vo.UserInfo, error) {
+	var user po.User
+	tx := dao.DB.Where("id = ?", id).Find(&user)
+	userInfo := vo.UserInfo{
+		// 关注和粉丝没写
+		UserId:        uint(user.ID),
+		NickName:      user.NickName,
+		FollowCount:   0,
+		FollowerCount: 0,
+		IsFollow:      false,
+	}
+	return userInfo, tx.Error
+}
+
+// 根据单个id获取用户的全部Video（用于发布列表）
+func GetUserAllVideo(id uint) ([]vo.VideoVo, error) {
+	videoList, err := dao.QueryUserAllVideo(id)
+	return videoList, err
+}
