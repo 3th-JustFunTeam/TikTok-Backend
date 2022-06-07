@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"github.com/3th-JustFunTeam/Tiktok-Backend/api"
 	"github.com/3th-JustFunTeam/Tiktok-Backend/dao"
 	"github.com/3th-JustFunTeam/Tiktok-Backend/model/po"
 	"github.com/3th-JustFunTeam/Tiktok-Backend/model/vo"
@@ -11,18 +10,6 @@ import (
 )
 
 func UserRegisterHandler(context *gin.Context) {
-	// need to finish
-	var userRegReq api.DouyinUserRegisterRequest
-	var userRegResp api.DouyinUserRegisterResponse
-
-	err := context.Bind(&userRegReq)
-	if err != nil {
-		context.JSON(http.StatusOK, userRegResp)
-	}
-	var user po.User
-	user.AuthName = *userRegReq.Username
-	user.Password = *userRegReq.Password
-	//db := config.DB
 
 }
 

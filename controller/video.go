@@ -17,7 +17,8 @@ import (
 
 // VideoFeedHandler 视频流接口
 func VideoFeedHandler(context *gin.Context) {
-	video, err := service.GetAllVideo()
+	token := context.Query("token")
+	video, err := service.GetAllVideo(token)
 
 	if err != nil {
 		context.JSON(404, gin.H{
