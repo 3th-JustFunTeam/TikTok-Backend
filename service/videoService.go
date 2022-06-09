@@ -135,7 +135,7 @@ func GetUserInfoById(id uint) (vo.UserInfo, error) {
 		NickName:      user.NickName,
 		FollowCount:   followCount,
 		FollowerCount: followerCount,
-		IsFollow:      false,
+		IsFollow:      false, // 这里我不知道怎么判断用户是否关注
 	}
 	return userInfo, tx.Error
 }

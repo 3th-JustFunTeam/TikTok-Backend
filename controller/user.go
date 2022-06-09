@@ -1,16 +1,54 @@
 package controller
 
 import (
+	"net/http"
+
 	"github.com/3th-JustFunTeam/Tiktok-Backend/dao"
+	"github.com/3th-JustFunTeam/Tiktok-Backend/model/common"
 	"github.com/3th-JustFunTeam/Tiktok-Backend/model/po"
 	"github.com/3th-JustFunTeam/Tiktok-Backend/model/vo"
 	"github.com/3th-JustFunTeam/Tiktok-Backend/utils"
 	"github.com/gin-gonic/gin"
-	"net/http"
 )
 
-func UserRegisterHandler(context *gin.Context) {
-
+func UserRegisterHandler(ctx *gin.Context) {
+	name := ctx.Query("username")
+	pwd := ctx.Query("password")
+	if len(name) > 32 || len(pwd) > 32 {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"StatusCode": 1,
+			"StatusMsg":  "用户名或密码格式错误",
+		})
+	}
+	user := po.User{
+		AuthName:        name,
+		Password:        pwd,
+		NickName:        common.DEFAULT_NICK_NAME,
+		Avatar:          common.DEFAULT_AVATAR,
+		Signature:       common.DEFAULT_SIGNATURE,
+		BackgroundImage: common.DEFAULT_BACKGROUND_IMAGE,
+	}
+	dao.DB.Where("auth_name = ?", name).Find(&user)
+	if user.ID != 0 {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"StatusCode": 1,
+			"StatusMsg":  "该用户名已被注册",
+		})
+	} else {
+		dao.DB.Create(&user)
+		dao.DB.Where("auth_name = ?", name).Find(&user)
+		if user.ID == 0 {
+			ctx.JSON(http.StatusBadRequest, gin.H{
+				"StatusCode": 1,
+				"StatusMsg":  "注册失败",
+			})
+		} else {
+			ctx.JSON(http.StatusOK, gin.H{
+				"StatusCode": 0,
+				"StatusMsg":  "注册成功",
+			})
+		}
+	}
 }
 
 func UserLoginHandler(c *gin.Context) {
