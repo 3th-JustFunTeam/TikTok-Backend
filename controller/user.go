@@ -46,6 +46,7 @@ func UserRegisterHandler(ctx *gin.Context) {
 			ctx.JSON(http.StatusOK, gin.H{
 				"StatusCode": 0,
 				"StatusMsg":  "注册成功",
+				"user_id":    user.ID,
 			})
 		}
 	}
