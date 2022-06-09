@@ -78,10 +78,7 @@ func VideoPublishHandler(context *gin.Context) {
 
 // VideoPublishListHandler 发布列表
 func VideoPublishListHandler(ctx *gin.Context) {
-	/*
-		思路一：我的逻辑是先判断user_id，如果user_id是否存在，再判断token是否已解析，全部完成可得到发布列表
-		思路二*：先判断token是否已解析，通过接收到的错误，再查找id，全部完成可得到发布列表
-	*/
+	// 思路：将token解析，将其解析出的id与user_id做比较，如果符合则返回视频列表
 	token := ctx.Query("token")
 	user_id := ctx.Query("user_id")
 
