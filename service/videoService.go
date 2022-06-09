@@ -130,12 +130,12 @@ func AddVideo(token, title, fileName string) error {
 func GetUserInfoById(id uint) (vo.UserInfo, error) {
 	var user po.User
 	tx := dao.DB.Where("id = ?", id).Find(&user)
+	followCount, followerCount := dao.QueryFollowingListByUserIdCount(int(user.ID))
 	userInfo := vo.UserInfo{
-		// 关注和粉丝没写
 		UserId:        uint(user.ID),
 		NickName:      user.NickName,
-		FollowCount:   0,
-		FollowerCount: 0,
+		FollowCount:   followCount,
+		FollowerCount: followerCount,
 		IsFollow:      false,
 	}
 	return userInfo, tx.Error
