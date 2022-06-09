@@ -26,8 +26,7 @@ func GetAllVideo(token string) ([]vo.VideoVo, error) {
 	}
 	setIds := utils.RemoveRepeatedElement(ids)
 
-	c, _ := utils.ParseToken(token)
-	infos, err := GetUserInfoByIds(setIds, token, c.UserId)
+	infos, err := GetUserInfoByIds(setIds, token)
 
 	// 封装数据
 	for _, v := range video {
@@ -52,17 +51,17 @@ func GetAllVideo(token string) ([]vo.VideoVo, error) {
 }
 
 // GetUserInfoByIds 根据用户的id集合获取用户的信息
-func GetUserInfoByIds(ids []int, token string, userId int) ([]vo.UserInfo, error) {
+func GetUserInfoByIds(ids []int, token string) ([]vo.UserInfo, error) {
 
 	var users []po.User
 	var userInfos []vo.UserInfo
 	tx := dao.DB.Where("id in ?", ids).Find(&users)
 
-	_, err := utils.ParseToken(token)
+	c, err := utils.ParseToken(token)
 	if err == nil { // 登录状态
 		for _, user := range users {
 			// 当前用户是否关注了视频发布者
-			count := dao.QueryIsFollow(userId, int(user.ID))
+			count := dao.QueryIsFollow(c.UserId, int(user.ID))
 			var IsFollow = false
 			if count == 1 {
 				IsFollow = true
