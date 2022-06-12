@@ -38,4 +38,6 @@ func InitDB() {
 	//db.Set("", "ENGINE=InnoDB").AutoMigrate(&po.User{})
 	//db.Set("", "ENGINE=InnoDB").AutoMigrate(&po.VideoCommon{})
 	//db.Set("", "ENGINE=InnoDB").AutoMigrate(&po.Follow{})
+	//db.Set("", "ENGINE=InnoDB").AutoMigrate(&po.Follow{})
+	//db.Set("", "ENGINE=InnoDB").AutoMigrate(&po.Love{})
 }

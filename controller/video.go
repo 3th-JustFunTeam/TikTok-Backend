@@ -36,13 +36,6 @@ func VideoPublishHandler(context *gin.Context) {
 	token := context.PostForm("token")
 	title := context.PostForm("title")
 	file, err := context.FormFile("data")
-	if err != nil {
-		context.JSON(http.StatusOK, gin.H{
-			"StatusCode": 1,
-			"StatusMsg":  err.Error(),
-		})
-		return
-	}
 
 	// 解析token
 	claims, err2 := utils.ParseToken(token)
@@ -53,7 +46,13 @@ func VideoPublishHandler(context *gin.Context) {
 			"StatusMsg":  "token error",
 		})
 	}
-
+	if err != nil {
+		context.JSON(http.StatusOK, gin.H{
+			"StatusCode": 1,
+			"StatusMsg":  err.Error(),
+		})
+		return
+	}
 	fileName := filepath.Base(file.Filename)
 	rand.Seed(time.Now().UnixNano())
 	r := rand.Intn(1000) + 1
@@ -84,19 +83,19 @@ func VideoPublishHandler(context *gin.Context) {
 }
 
 // VideoPublishListHandler 发布列表
-func VideoPublishListHandler(ctx *gin.Context) {
-	// 思路：将token解析，将其解析出的id与user_id做比较，如果符合则返回视频列表
-	token := ctx.Query("token")
-	user_id := ctx.Query("user_id")
+func VideoPublishListHandler(c *gin.Context) {
+
+	token := c.Query("token")
+	user_id := c.Query("user_id")
 
 	videoList, err := service.GetUserAllVideo(user_id, token)
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusBadRequest, gin.H{
 			"status_code": 1,
 			"status_msg":  err.Error(),
 		})
 	} else {
-		ctx.JSON(http.StatusOK, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"status_code": 0,
 			"status_msg":  "success",
 			"video_list":  videoList,

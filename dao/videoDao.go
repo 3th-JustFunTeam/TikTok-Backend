@@ -26,3 +26,9 @@ func QueryUserAllVideo(id string) ([]po.Video, error) {
 	tx := DB.Where("user_id = ?", id).Order("created_time desc").Find(&video)
 	return video, tx.Error
 }
+
+func QueryVideoByVideoId(id uint) (po.Video, error) {
+	var video po.Video
+	res := DB.Where("video_id = ?", id).Find(&video)
+	return video, res.Error
+}
