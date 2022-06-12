@@ -104,17 +104,10 @@ func GetUserInfoByIds(ids []int, token string) ([]vo.UserInfo, error) {
 }
 
 // AddVideo 添加视频
-func AddVideo(token, title, fileName string) error {
-
-	// 解析token
-	claims, err2 := utils.ParseToken(token)
-
-	if err2 != nil {
-		return errors.New("token 解析错误")
-	}
+func AddVideo(userId int, title, fileName string) error {
 
 	video := po.Video{
-		UserId:      uint(claims.UserId),
+		UserId:      uint(userId),
 		PlayUrl:     fileName,
 		CoverUrl:    common.DEFAULT_COVERURL,
 		Title:       title,
@@ -122,7 +115,7 @@ func AddVideo(token, title, fileName string) error {
 		UpdatedTime: time.Now(),
 	}
 	favorite := po.Favorite{
-		User_Id:     uint(claims.UserId),
+		User_Id:     uint(userId),
 		Like:        0,
 		CreatedTime: time.Now(),
 		UpdatedTime: time.Now(),
