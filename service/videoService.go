@@ -2,6 +2,7 @@ package service
 
 import (
 	"errors"
+	"strconv"
 	"time"
 
 	"github.com/3th-JustFunTeam/Tiktok-Backend/dao"
@@ -126,22 +127,57 @@ func AddVideo(token, title, fileName string) error {
 }
 
 // 根据单个id获取单个视频作者信息（用于发布列表）
-func GetUserInfoById(id uint) (vo.UserInfo, error) {
+func GetUserInfoById(uId, userid int) (vo.UserInfo, error) {
 	var user po.User
-	tx := dao.DB.Where("id = ?", id).Find(&user)
+	var userInfo vo.UserInfo
+	tx := dao.DB.Where("id = ?", uId).Find(&user)
 	followCount, followerCount := dao.QueryFollowingListByUserIdCount(int(user.ID))
-	userInfo := vo.UserInfo{
+	var isFollow = false
+	// 判断是否其他用户还是自己
+	if userid != uId {
+		count := dao.QueryIsFollow(userid, uId)
+		if count < 0 {
+			isFollow = true
+		}
+	}
+	userInfo = vo.UserInfo{
 		UserId:        uint(user.ID),
 		NickName:      user.NickName,
 		FollowCount:   followCount,
 		FollowerCount: followerCount,
-		IsFollow:      false, // 这里我不知道怎么判断用户是否关注
+		IsFollow:      isFollow,
 	}
+
 	return userInfo, tx.Error
 }
 
 // 根据单个id获取用户的全部Video（用于发布列表）
-func GetUserAllVideo(id uint) ([]vo.VideoVo, error) {
-	videoList, err := dao.QueryUserAllVideo(id)
-	return videoList, err
+func GetUserAllVideo(id, token string) ([]vo.VideoVo, error) {
+	claims, err2 := utils.ParseToken(token)
+
+	if err2 != nil {
+		return []vo.VideoVo{}, errors.New("error")
+	}
+	var err = errors.New("")
+	var VoList []vo.VideoVo
+	var userInfo vo.UserInfo
+
+	uId, _ := strconv.Atoi(id)
+	userInfo, err = GetUserInfoById(uId, claims.UserId)
+	videoList, _ := dao.QueryUserAllVideo(id)
+	for _, video := range videoList {
+		var videoVo = vo.VideoVo{
+			Id:       video.VideoId,
+			Author:   userInfo,
+			PlayUrl:  video.PlayUrl,
+			CoverUrl: video.CoverUrl,
+			// 点赞
+			FavoriteCount: 0,
+			CommentCount:  0,
+			IsFavorite:    false,
+			Title:         video.Title,
+		}
+		VoList = append(VoList, videoVo)
+	}
+	return VoList, err
 }

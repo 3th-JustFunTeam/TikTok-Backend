@@ -1,17 +1,13 @@
 package controller
 
 import (
-	"errors"
 	"math/rand"
 	"net/http"
 	"path/filepath"
 	"strconv"
 	"time"
 
-	"github.com/3th-JustFunTeam/Tiktok-Backend/dao"
-	"github.com/3th-JustFunTeam/Tiktok-Backend/model/po"
 	"github.com/3th-JustFunTeam/Tiktok-Backend/service"
-	"github.com/3th-JustFunTeam/Tiktok-Backend/utils"
 	"github.com/gin-gonic/gin"
 )
 
@@ -82,38 +78,18 @@ func VideoPublishListHandler(ctx *gin.Context) {
 	token := ctx.Query("token")
 	user_id := ctx.Query("user_id")
 
-	claims, err := utils.ParseToken(token)
-	if err != nil || claims.Id != user_id {
+	videoList, err := service.GetUserAllVideo(user_id, token)
+	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
-			"StatusCode": 1,
-			"StatusMsg":  errors.New("信息错误"),
+			"status_code": 1,
+			"status_msg":  err.Error(),
 		})
 	} else {
-		var user po.User
-		dao.DB.Where("id = ?", claims.UserId).Find(&user)
-
-		userInfo, err := service.GetUserInfoById(uint(claims.UserId))
-		if err != nil {
-			ctx.JSON(http.StatusBadRequest, gin.H{
-				"StatusCode": 1,
-				"StatusMsg":  err.Error(),
-			})
-		} else {
-			videoList, err := service.GetUserAllVideo(uint(claims.UserId))
-			if err != nil {
-				ctx.JSON(http.StatusBadRequest, gin.H{
-					"StatusCode": 1,
-					"StatusMsg":  err.Error(),
-				})
-			} else {
-				ctx.JSON(http.StatusOK, gin.H{
-					"StatusCode": 0,
-					"StatusMsg":  err.Error(),
-					"userInfo":   userInfo,
-					"videoList":  videoList,
-				})
-			}
-		}
+		ctx.JSON(http.StatusOK, gin.H{
+			"status_code": 0,
+			"status_msg":  "success",
+			"video_list":  videoList,
+		})
 
 	}
 }
