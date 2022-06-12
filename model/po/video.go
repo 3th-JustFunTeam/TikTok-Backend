@@ -11,5 +11,4 @@ type Video struct {
 	Title       string    `gorm:"type:varchar(250);comment:视频标题"`
 	CreatedTime time.Time `gorm:"comment:创建时间"`
 	UpdatedTime time.Time `gorm:"comment:修改时间"`
-	LikeCount   uint      `gorm:"comment:点赞数"`
 }
