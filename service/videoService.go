@@ -120,8 +120,18 @@ func AddVideo(token, title, fileName string) error {
 		CreatedTime: time.Now(),
 		UpdatedTime: time.Now(),
 	}
+	favorite := po.Favorite{
+		User_Id:     uint(claims.UserId),
+		Like:        0,
+		CreatedTime: time.Now(),
+		UpdatedTime: time.Now(),
+	}
 
 	err := dao.SaveVideo(video)
+	if err != nil {
+		return err
+	}
+	err = dao.SaveLike(favorite)
 	return err
 }
 

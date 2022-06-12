@@ -1,11 +1,12 @@
 package controller
 
 import (
-	"github.com/3th-JustFunTeam/Tiktok-Backend/service"
-	"github.com/gin-gonic/gin"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"github.com/3th-JustFunTeam/Tiktok-Backend/service"
+	"github.com/gin-gonic/gin"
 )
 
 // CommentActionHandler 添加评论
