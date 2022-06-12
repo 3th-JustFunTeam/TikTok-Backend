@@ -2,11 +2,12 @@ package service
 
 import (
 	"errors"
+	"strconv"
+	"time"
+
 	"github.com/3th-JustFunTeam/Tiktok-Backend/dao"
 	"github.com/3th-JustFunTeam/Tiktok-Backend/model/po"
 	"github.com/3th-JustFunTeam/Tiktok-Backend/model/vo"
-	"strconv"
-	"time"
 )
 
 func Like(userId, videoId int) error {
@@ -23,7 +24,7 @@ func Like(userId, videoId int) error {
 
 func DownLike(userId, videoId int) error {
 
-	err, row := dao.DeleteLike(userId, videoId)
+	row, err := dao.DeleteLike(userId, videoId)
 	if row != 1 {
 		return errors.New("不能再删除了")
 	}

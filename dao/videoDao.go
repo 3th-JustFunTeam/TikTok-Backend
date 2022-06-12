@@ -14,7 +14,6 @@ func QueryAllVideo() ([]po.Video, error) {
 
 // SaveVideo 保存视频
 func SaveVideo(video po.Video) error {
-
 	tx := DB.Create(&video)
 	return tx.Error
 }

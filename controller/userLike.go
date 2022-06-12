@@ -1,11 +1,12 @@
 package controller
 
 import (
+	"net/http"
+	"strconv"
+
 	"github.com/3th-JustFunTeam/Tiktok-Backend/service"
 	"github.com/3th-JustFunTeam/Tiktok-Backend/utils"
 	"github.com/gin-gonic/gin"
-	"net/http"
-	"strconv"
 )
 
 // FavoriteActionHandler 点赞

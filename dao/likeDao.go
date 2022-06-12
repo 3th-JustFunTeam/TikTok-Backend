@@ -8,11 +8,10 @@ func SaveLike(love po.Love) error {
 	return tx.Error
 }
 
-func DeleteLike(userId, videoId int) (error, int64) {
-
+func DeleteLike(userId, videoId int) (int64, error) {
 	var love = po.Love{}
 	res := DB.Where("user_id = ? and video_id = ?", userId, videoId).Delete(&love)
-	return res.Error, res.RowsAffected
+	return res.RowsAffected, res.Error
 }
 
 func QueryIsLike(userId, videoId uint) int64 {

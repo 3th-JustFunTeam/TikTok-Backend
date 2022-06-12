@@ -2,12 +2,13 @@ package service
 
 import (
 	"errors"
+	"strconv"
+	"time"
+
 	"github.com/3th-JustFunTeam/Tiktok-Backend/dao"
 	"github.com/3th-JustFunTeam/Tiktok-Backend/model/po"
 	"github.com/3th-JustFunTeam/Tiktok-Backend/model/vo"
 	"github.com/3th-JustFunTeam/Tiktok-Backend/utils"
-	"strconv"
-	"time"
 )
 
 // AddFollowing 关注

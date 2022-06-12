@@ -166,12 +166,11 @@ func GetUserAllVideo(id, token string) ([]vo.VideoVo, error) {
 	if err2 != nil {
 		return []vo.VideoVo{}, errors.New("error")
 	}
-	var err = errors.New("")
 	var VoList []vo.VideoVo
 	var userInfo vo.UserInfo
 
 	uId, _ := strconv.Atoi(id)
-	userInfo, err = GetUserInfoById(uId, claims.UserId)
+	userInfo, err := GetUserInfoById(uId, claims.UserId)
 	videoList, _ := dao.QueryUserAllVideo(id)
 	for _, video := range videoList {
 		count := dao.CommentCount(video.VideoId)

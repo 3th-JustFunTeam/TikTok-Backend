@@ -101,5 +101,5 @@ func GetCommentList(videoId int, token string) ([]vo.CommentVo, error) {
 			}
 		}
 	}
-	return commentVo, nil
+	return commentVo, err
 }
