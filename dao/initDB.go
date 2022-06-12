@@ -30,11 +30,13 @@ func InitDB() {
 		Logger: newLogger,
 	})
 	if err != nil {
-		panic(err)
+		panic(any(err))
 	}
 	DB = db // 全局使用
 
 	//db.Set("", "ENGINE=InnoDB").AutoMigrate(&po.User{})
 	//db.Set("", "ENGINE=InnoDB").AutoMigrate(&po.VideoCommon{})
 	//db.Set("", "ENGINE=InnoDB").AutoMigrate(&po.Follow{})
+	//db.Set("", "ENGINE=InnoDB").AutoMigrate(&po.Follow{})
+	//db.Set("", "ENGINE=InnoDB").AutoMigrate(&po.Love{})
 }

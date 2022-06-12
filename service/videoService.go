@@ -31,24 +31,40 @@ func GetAllVideo(token string) ([]vo.VideoVo, error) {
 
 	// 封装数据
 	for _, v := range video {
+		isLike := CheckIsLike(token, v.VideoId)
 		for _, info := range infos {
 
 			if v.UserId == info.UserId {
 				count := dao.CommentCount(v.VideoId)
+				likeCount := dao.VideoLikeCount(v.VideoId)
 				videoVo := vo.VideoVo{
-					Id:           v.VideoId,
-					Author:       info,
-					PlayUrl:      common.VIDEO_RUL_PREFIX + common.VIDEO_RUL_MID + common.VIDEO_RUL_SUFFIX + v.PlayUrl,
-					CoverUrl:     v.CoverUrl,
-					CommentCount: count,
-					IsFavorite:   false,
-					Title:        v.Title,
+					Id:            v.VideoId,
+					Author:        info,
+					PlayUrl:       common.VIDEO_RUL_PREFIX + common.VIDEO_RUL_MID + common.VIDEO_RUL_SUFFIX + v.PlayUrl,
+					CoverUrl:      v.CoverUrl,
+					CommentCount:  count,
+					IsFavorite:    isLike,
+					FavoriteCount: uint64(likeCount),
+					Title:         v.Title,
 				}
 				videoVoList = append(videoVoList, videoVo)
 			}
 		}
 	}
 	return videoVoList, err
+}
+
+// CheckIsLike 是否点赞
+func CheckIsLike(token string, videoId uint) bool {
+	c, err := utils.ParseToken(token)
+	// 未登录
+	if err != nil {
+		return false
+	} else {
+		count := dao.QueryIsLike(uint(c.UserId), videoId)
+		isLike := count > 0
+		return isLike
+	}
 }
 
 // GetUserInfoByIds 根据用户的id集合获取用户的信息
@@ -159,15 +175,18 @@ func GetUserAllVideo(id, token string) ([]vo.VideoVo, error) {
 	userInfo, err = GetUserInfoById(uId, claims.UserId)
 	videoList, _ := dao.QueryUserAllVideo(id)
 	for _, video := range videoList {
+		count := dao.CommentCount(video.VideoId)
+		likeCount := dao.VideoLikeCount(video.VideoId)
+		isLike := CheckIsLike(token, video.VideoId)
 		var videoVo = vo.VideoVo{
 			Id:       video.VideoId,
 			Author:   userInfo,
 			PlayUrl:  video.PlayUrl,
 			CoverUrl: video.CoverUrl,
 			// 点赞
-			FavoriteCount: 0,
-			CommentCount:  0,
-			IsFavorite:    false,
+			FavoriteCount: uint64(likeCount),
+			CommentCount:  count,
+			IsFavorite:    isLike,
 			Title:         video.Title,
 		}
 		VoList = append(VoList, videoVo)

@@ -4,7 +4,7 @@ package common
 const VIDEO_RUL_PREFIX = "http://"
 
 // VIDEO_RUL_MID 视频播放地址IP地址  改成自己的ip就可以跑了
-const VIDEO_RUL_MID = "10.23.228.45"
+const VIDEO_RUL_MID = "192.168.31.21"
 
 // VIDEO_RUL_PREFIX 视频播放后缀
 const VIDEO_RUL_SUFFIX = ":8080/static/"

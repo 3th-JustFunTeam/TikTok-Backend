@@ -101,12 +101,12 @@ func UserInfoHandler(c *gin.Context) {
 
 		var user po.User
 		dao.DB.Where("id = ?", claims.UserId).Find(&user)
-
+		followCount, followerCount := dao.QueryFollowingListByUserIdCount(int(user.ID))
 		userInfo := vo.UserInfo{
 			UserId:          uint(user.ID),
 			NickName:        user.NickName,
-			FollowCount:     0,
-			FollowerCount:   0,
+			FollowCount:     followCount,
+			FollowerCount:   followerCount,
 			IsFollow:        false,
 			Avatar:          user.Avatar,
 			Signature:       user.Signature,

@@ -19,8 +19,8 @@ func InitRouter(r *gin.Engine) {
 	g.GET("/publish/list/", controller.VideoPublishListHandler)
 
 	// 拓展接口 - I
-	//g.POST("/favorite/action/", controller.FavoriteActionHandler)
-	// g.GET("/favorite/list/", controller.FavoriteListHandler)
+	g.POST("/favorite/action/", controller.FavoriteActionHandler)
+	g.GET("/favorite/list/", controller.FavoriteListHandler)
 	g.POST("/comment/action/", controller.CommentActionHandler)
 	g.GET("/comment/list/", controller.CommentListHandler)
 
