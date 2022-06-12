@@ -1,5 +1,8 @@
 package common
 
+// DEFAULT_NICK_NAME 默认昵称
+const DEFAULT_NICK_NAME = "用户114514"
+
 // DEFAULT_AVATAR 默认用户头像
 const DEFAULT_AVATAR = "https://i.postimg.cc/rmvzPBBf/1.jpg"
 

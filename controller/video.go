@@ -2,7 +2,6 @@ package controller
 
 import (
 	"github.com/3th-JustFunTeam/Tiktok-Backend/service"
-	"github.com/3th-JustFunTeam/Tiktok-Backend/utils"
 	"github.com/gin-gonic/gin"
 	"math/rand"
 	"net/http"
@@ -43,16 +42,6 @@ func VideoPublishHandler(context *gin.Context) {
 		return
 	}
 
-	// 解析token
-	claims, err2 := utils.ParseToken(token)
-
-	if err2 != nil {
-		context.JSON(http.StatusOK, gin.H{
-			"StatusCode": 1,
-			"StatusMsg":  "token error",
-		})
-	}
-
 	fileName := filepath.Base(file.Filename)
 	rand.Seed(time.Now().UnixNano())
 	r := rand.Intn(1000) + 1
@@ -66,7 +55,7 @@ func VideoPublishHandler(context *gin.Context) {
 		return
 	}
 
-	err = service.AddVideo(claims.UserId, title, newFileName)
+	err = service.AddVideo(token, title, newFileName)
 
 	if err != nil {
 		context.JSON(http.StatusOK, gin.H{
