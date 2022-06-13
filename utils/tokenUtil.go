@@ -1,8 +1,9 @@
 package utils
 
 import (
-	"github.com/dgrijalva/jwt-go"
 	"time"
+
+	"github.com/dgrijalva/jwt-go"
 )
 
 // JWTsecret 秘钥

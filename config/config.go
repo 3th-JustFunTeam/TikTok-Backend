@@ -3,11 +3,12 @@ package config
 import (
 	"errors"
 	"fmt"
+	"io/ioutil"
+	"os"
+
 	"github.com/ghodss/yaml"
 	"github.com/go-redis/redis/v8"
 	"gorm.io/gorm"
-	"io/ioutil"
-	"os"
 )
 
 type Config struct {
